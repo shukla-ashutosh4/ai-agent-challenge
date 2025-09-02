@@ -34,12 +34,10 @@ class SimplePDFParserAgent:
 
     def __init__(self, api_key: str, model: str | None = None):
         """Initialize the agent"""
-        # Create Groq client. The client will look for GROQ_API_KEY by default if api_key is None.
         if not api_key:
             raise ValueError("API key is required to initialize Groq client")
         self.client = Groq(api_key=api_key)
-        # Default model can be overridden by env var GROQ_MODEL or constructor argument
-        self.model = model or os.getenv("GROQ_MODEL", "llama3-8b-8192")
+        self.model = model or os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
         self.max_attempts = 3
 
     def read_pdf(self, pdf_path: str) -> str:
@@ -332,6 +330,7 @@ def main():
     parser.add_argument("--csv", help="CSV path (default: data/{target}/expected_output.csv)")
     parser.add_argument("--api-key", help="Groq API key (or set GROQ_API_KEY)")
     parser.add_argument("--verbose", action="store_true", help="Enable verbose logging")
+    parser.add_argument("--model", default="llama-3.1-8b-instant", help="The Groq model to use")
 
     args = parser.parse_args()
 
@@ -358,7 +357,7 @@ def main():
     print()
 
     # Run agent
-    agent = SimplePDFParserAgent(api_key=api_key)
+    agent = SimplePDFParserAgent(api_key=api_key, model=args.model)
     start_time = time.time()
 
     success = agent.run_agent(args.target, pdf_path, csv_path)
