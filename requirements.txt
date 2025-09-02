@@ -1,0 +1,27 @@
+
+# Core LangGraph for agent workflow
+langgraph>=0.0.40
+langchain>=0.1.0
+langchain-core>=0.1.0
+
+# # Google Gemini AI
+# google-generativeai>=0.3.0
+
+# Groq
+groq
+
+# PDF processing
+PyPDF2>=3.0.1
+pdfplumber>=0.9.0
+
+# Data processing
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Utilities
+python-dotenv>=1.0.0
+typing-extensions>=4.5.0
+
+# Testing
+pytest>=7.0.0
+pytest-cov>=4.0.0
