@@ -1,6 +1,6 @@
 # AI Agent for Automatic Bank Statement Parser Generation
 
-This project features a Python-based AI agent that automates the creation of parsers for bank statements. The agent uses Groq's **LLaMA 3.1 8B Instant** model to analyze sample PDF statements and generate custom Python code to extract transaction data into a structured format.
+This project features a Python-based AI agent that automates the creation of parsers for bank statements. The agent uses Gemini's model to analyze sample PDF statements and generate custom Python code to extract transaction data into a structured format.
 
 ---
 
@@ -19,7 +19,7 @@ I learned a great deal about **prompt engineering**, **iterative code generation
 The agent is currently able to perform its core loop of analyzing, generating, and testing code. However, it struggles with the **self-correction phase**.
 
 - ✅ **What Works:**  
-  The agent successfully reads the PDF and CSV, sends the data to the Groq API, and generates an initial Python parser.  
+  The agent successfully reads the PDF and CSV, sends the data to the Gemini API, and generates an initial Python parser.  
 
 - ⚠️ **What Needs Improvement:**  
   The generated code often fails to extract the transaction data correctly, resulting in an empty DataFrame. While the agent correctly identifies this failure, its attempts to fix the code are currently unsuccessful, leading it to exhaust its attempts.  
