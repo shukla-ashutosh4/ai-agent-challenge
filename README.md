@@ -1,6 +1,54 @@
-# AI Agent for Bank Statement Parser Generation 🤖
+# AI Agent for Automatic Bank Statement Parser Generation
 
-An autonomous AI agent that analyzes bank statement PDFs and automatically generates custom Python parsers to extract transaction data into CSV format.
+This project features a Python-based AI agent that automates the creation of parsers for bank statements. The agent uses Groq's **LLaMA 3.1 8B Instant** model to analyze sample PDF statements and generate custom Python code to extract transaction data into a structured format.
+
+---
+
+## 🚀 My Learning Journey & Acknowledgments
+
+This project was my first venture into the world of AI agents and complex document parsing. It was a fantastic learning experience that pushed me to understand the practical applications of Large Language Models (LLMs) in solving real-world data extraction problems.  
+
+I learned a great deal about **prompt engineering**, **iterative code generation**, and the challenges of creating robust, self-correcting systems.  
+
+🙏 I would like to extend a heartfelt thank you to the entire team at **Karbon Card** for this incredible opportunity. The challenge was both stimulating and educational, providing a perfect platform to grow my skills.
+
+---
+
+## 📌 Project Status: Partially Successful
+
+The agent is currently able to perform its core loop of analyzing, generating, and testing code. However, it struggles with the **self-correction phase**.
+
+- ✅ **What Works:**  
+  The agent successfully reads the PDF and CSV, sends the data to the Groq API, and generates an initial Python parser.  
+
+- ⚠️ **What Needs Improvement:**  
+  The generated code often fails to extract the transaction data correctly, resulting in an empty DataFrame. While the agent correctly identifies this failure, its attempts to fix the code are currently unsuccessful, leading it to exhaust its attempts.  
+
+This is a challenging problem, and the current state represents a solid foundation for future improvements in the self-correction logic.
+
+---
+
+## ⚙️ How It Works: The Agent's Workflow
+
+The agent operates on a **generate → test → fix loop**.  
+The core idea is to use an LLM not just to write code once, but to **iteratively refine it** based on real-world test results until it works correctly.
+
+1. **Analysis:**  
+   The agent first reads a sample PDF bank statement and a corresponding CSV file that defines the desired output structure. It sends this information to the LLaMA model to get a high-level analysis of the PDF's layout and data patterns.
+
+2. **Code Generation:**  
+   Based on this analysis, the agent prompts LLaMA to write a complete Python parser function using the `pdfplumber` library.
+
+3. **Testing:**  
+   The newly generated code is saved to a file and executed in a separate, isolated process. The script runs the parser on the sample PDF and compares its output to the expected CSV.
+
+4. **Self-Correction:**  
+   If the test fails, the agent enters the "fix" cycle. It creates a new, more detailed prompt that includes the flawed code, the exact error message from the test, and the original PDF text. This gives the AI all the context it needs to debug and provide a corrected version of the code.
+
+5. **Loop or Succeed:**  
+   The agent repeats the test-and-fix cycle up to a maximum number of attempts. If the parser passes the test, the agent saves the final code and exits successfully.
+
+---
 
 ## Architecture Overview
 
@@ -35,17 +83,12 @@ pip install -r requirements.txt
 ### 3. Set Up API Key
 Choose either Google Gemini (recommended for free credits) or Groq:
 
-**Option A: Google Gemini**
+**Google Gemini**
 ```bash
 # Get your API key from: https://makersuite.google.com/app/apikey
 export GEMINI_API_KEY="your-api-key-here"
 ```
 
-**Option B: Groq**
-```bash
-# Get your API key from: https://console.groq.com/keys
-export GROQ_API_KEY="your-api-key-here"
-```
 
 ### 4. Run the Agent
 ```bash
@@ -84,7 +127,7 @@ ai-agent-challenge/
 └── README.md                  # This file
 ```
 
-## Adding New Banks
+## Adding New Banks(Future Works)
 
 To add support for a new bank (e.g., SBI):
 
@@ -99,19 +142,18 @@ To add support for a new bank (e.g., SBI):
 - **Self-Debugging**: Automatically fixes errors through iterative refinement
 - **Multi-Provider Support**: Works with both Google Gemini and Groq LLMs
 - **Extensible**: Easy to add new banks by providing sample data
-- **Production Ready**: Generated parsers include error handling and logging
 
 ## Troubleshooting
 
-- **PDF reading errors**: Ensure `pdfplumber` is installed: `pip install pdfplumber`
+- **PDF reading errors**: Ensure `PyPDF2` is installed: `pip install PyPDF2`
 - **API errors**: Check your API key is valid and has credits
 - **Parser failures**: The agent will attempt 3 times; check logs for specific errors
-- **Memory issues**: For large PDFs, consider using `--provider groq` for faster processing
 
 ## Demo Video
 
-Watch the agent in action: [60-second demo showing fresh clone → agent.py → green pytest]
+Watch the agent in action: [https://drive.google.com/file/d/1bvK_QfK_4XMVp4iOgPbzUCHQ9LhRlO_g/view?usp=sharing]
 
 ---
 
 Built with ❤️ for the Agent-as-Coder Challenge
+By Ashutosh Shukla[https://www.linkedin.com/in/ashutosh-shukla4]
